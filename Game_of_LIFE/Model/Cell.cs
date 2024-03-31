@@ -4,7 +4,17 @@ namespace Game_of_LIFE.Model;
 
 public class Cell : ICell
 {
-    public bool State { get; private set; } = false;
+    private bool state = false;
 
-    public int QuantityCellAround { get; private set; } = 0;
+    public bool State
+    {
+        get => state;
+        set
+        {
+            if (value == null)
+                return;
+            state = value;
+        }
+    }
+    
 }

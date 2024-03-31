@@ -2,8 +2,33 @@
 using Game_of_LIFE.Model.Interfaces;
 using Microsoft.VisualBasic;
 
-Field field = new Field();
+IField field = Field.Instance(11,6);
 
-field.CreateCellField(5,6);
 
-field.PrintCellField();
+
+
+int[,] c = {
+    {1,1,0,0,0,0},
+    {1,1,0,0,0,0},
+    {0,0,0,0,0,0},
+    {0,0,0,0,0,0},
+    {0,0,0,0,0,0},
+    {0,0,0,0,0,0},
+    {0,1,1,1,0,0},
+    {0,0,0,0,0,0},
+    {0,0,0,0,0,0},
+    {0,0,0,0,0,0},
+    {0,0,0,0,0,0}
+};
+
+field.SetCellField(c);
+
+while (true)
+{
+    field.PrintCellField();
+    if (field.Step())
+        break;
+    Thread.Sleep(200);
+    Console.Clear();
+}
+

@@ -2,7 +2,6 @@
 
 public interface ICell
 {
-    public bool State { get; }
-
-    public int QuantityCellAround { get; }
+    public bool State { get; set; }
+    
 }
