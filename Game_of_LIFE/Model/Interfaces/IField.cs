@@ -6,5 +6,5 @@ public interface IField
     public bool SetCellField(int[,] settingsField);
     public void PrintCellField();
     public bool CheckStaticPosition(ICell[,] nowField);
-    public bool Step();
+    public bool Step(bool fieldIsCycle);
 }

@@ -94,34 +94,126 @@ public class Field : IField
     }
 
 
-    public bool Step()
+    public bool Step(bool fieldIsCycle)
     {
         ICell[,] prevCell = new ICell[CellField.GetLength(0), CellField.GetLength(1)];
         SetCopyField(ref prevCell);
         int length = CellField.GetLength(0);
         int width = CellField.GetLength(1);
+
+        if(fieldIsCycle)
+            NonCycleField(prevCell,width,length);
+        else CycleField(prevCell,width,length);
         
-        for (int i = 0; i < length; i++)
+        if (CheckStaticPosition(prevCell))
+            return true;
+        return false;
+    }
+
+
+
+    private void NonCycleField(ICell[,] prevCell,int width,int length)
+    {
+         for (int i = 0; i < length; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 int sumOfNeignours = 0;
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i - 1, length), GetY(j - 1,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i - 1, length), GetY(j,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i - 1, length), GetY(j + 1,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i, length), GetY(j - 1,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i, length), GetY(j + 1,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i + 1, length), GetY(j - 1,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i + 1, length), GetY(j  ,width)].State);
-                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i + 1, length), GetY(j + 1,width)].State);
+                if (i == 0 && j == 0)
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i,j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i+1,j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i+1,j].State);
+                }
+                else if(i==0 && j==width-1)
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i,j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i+1,j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i+1,j-1].State);
+                }
+                else if(i==length-1 && j==0)
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i,j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j+1].State);
+                }
+                else if(i==length-1  && j==width-1)
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i,j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j-1].State);
+                }
+                else if ((i != 0 || i!=length-1) && j == 0)
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j+1].State);
+                }
+                else if ((i != 0 || i!=length-1) && j == width-1)
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j].State);
+                }
+                else if(i==0 && (j != 0 || j!=width-1))
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j+1].State);
+                }
+                else if(i==length-1 && (j != 0 || j!=width-1))
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j+1].State);
+                }
+                else
+                {
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1,j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i-1, j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i, j+1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j-1].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j].State);
+                    sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j+1].State);
+                }
                 if ((prevCell[i, j].State == false) && (sumOfNeignours == 3))
                     CellField[i, j].State = true;
                 else if (sumOfNeignours < 2 || sumOfNeignours > 3)
                     CellField[i, j].State = false;
             }
         }
-        if (CheckStaticPosition(prevCell))
-            return true;
-        return false;
+    }
+
+    private void CycleField(ICell[,] prevCell, int width, int length)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                int sumOfNeignours = 0;
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i-1,length),GetY(j-1,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i-1,length), GetY(j,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i-1,length), GetY(j+1,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i,length), GetY(j-1,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i,length), GetY(j+1,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i+1,length), GetY(j-1,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i+1,length), GetY(j,width)].State);
+                sumOfNeignours += Convert.ToInt32(prevCell[GetX(i+1,length), GetY(j+1,width)].State);
+                if ((prevCell[i, j].State == false) && (sumOfNeignours == 3))
+                    CellField[i, j].State = true;
+                else if (sumOfNeignours < 2 || sumOfNeignours > 3)
+                    CellField[i, j].State = false;
+            }
+        }
     }
 }

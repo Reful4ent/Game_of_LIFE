@@ -8,16 +8,16 @@ IField field = Field.Instance(11,6);
 
 
 int[,] c = {
-    {1,1,0,0,0,0},
-    {1,1,0,0,0,0},
+    {0,0,0,1,0,0},
+    {0,0,0,0,1,0},
+    {0,0,1,1,1,0},
     {0,0,0,0,0,0},
     {0,0,0,0,0,0},
     {0,0,0,0,0,0},
     {0,0,0,0,0,0},
-    {0,1,1,1,0,0},
     {0,0,0,0,0,0},
     {0,0,0,0,0,0},
-    {0,0,0,0,0,0},
+    {1,1,1,0,0,0},
     {0,0,0,0,0,0}
 };
 
@@ -26,9 +26,9 @@ field.SetCellField(c);
 while (true)
 {
     field.PrintCellField();
-    if (field.Step())
+    if (field.Step(false))
         break;
-    Thread.Sleep(200);
+    Thread.Sleep(2000);
     Console.Clear();
 }
 
