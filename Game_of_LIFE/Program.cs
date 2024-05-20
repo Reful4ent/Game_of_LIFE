@@ -23,12 +23,3 @@ int[,] c = {
 
 field.SetCellField(c);
 
-while (true)
-{
-    field.PrintCellField();
-    if (field.Step(false))
-        break;
-    Thread.Sleep(2000);
-    Console.Clear();
-}
-
