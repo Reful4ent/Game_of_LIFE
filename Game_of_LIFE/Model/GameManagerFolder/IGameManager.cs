@@ -10,4 +10,6 @@ public interface IGameManager
     public bool Start(bool fieldType);
     public Task<bool> StartAsync(bool fieldType);
     public bool ChangeSpeed(int timeDelay);
+    public bool Pause();
+    public Task<bool> ResumeAsync();
 }
