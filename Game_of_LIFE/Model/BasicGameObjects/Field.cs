@@ -21,15 +21,15 @@ public class Field : IField
                 CellField[i, j] = new Cell();
         return true;
     }
-
-
     public bool SetCellField(int[,] settingsField)
     {
         if (settingsField == null)
             return false;
+        
         if (CellField.GetLength(0) != settingsField.GetLength(0) 
             || CellField.GetLength(1) != settingsField.GetLength(1))
             return false;
+        
         for (int i = 0; i < settingsField.GetLength(0); i++)
         {
             for (int j = 0; j < settingsField.GetLength(1); j++)
@@ -43,7 +43,6 @@ public class Field : IField
         }
         return true;
     }
-
     private bool SetCopyField(ref ICell[,] prevField)
     {
         if (CellField.GetLength(0) != prevField.GetLength(0) 
@@ -59,7 +58,6 @@ public class Field : IField
         }
         return true;
     }
-
     public void PrintCellField()
     {
         if (CellField == null)
@@ -76,10 +74,8 @@ public class Field : IField
             Console.WriteLine();
         }
     }
-
     private int GetX(int x, int length) => (length + x) % length;
     private int GetY(int y, int width) => (width + y) % width;
-    
     public bool CheckStaticPosition(ICell[,] prevField)
     {
         for (int i = 0; i < CellField.GetLength(0); i++)
@@ -92,8 +88,6 @@ public class Field : IField
         }
         return true;
     }
-
-
     public bool Step(bool fieldIsCycle)
     {
         ICell[,] prevCell = new ICell[CellField.GetLength(0), CellField.GetLength(1)];
@@ -109,9 +103,6 @@ public class Field : IField
             return true;
         return false;
     }
-
-
-
     private void NonCycleField(ICell[,] prevCell,int width,int length)
     {
          for (int i = 0; i < length; i++)
@@ -193,7 +184,6 @@ public class Field : IField
             }
         }
     }
-
     private void CycleField(ICell[,] prevCell, int width, int length)
     {
         for (int i = 0; i < length; i++)
