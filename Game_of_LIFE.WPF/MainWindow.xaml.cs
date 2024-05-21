@@ -47,6 +47,7 @@ public partial class MainWindow : Window
 
         field.SetCellField(c);
         await GameManager.StartAsync(false);
+   
         System.Console.WriteLine("hubabuba");
     }
 
