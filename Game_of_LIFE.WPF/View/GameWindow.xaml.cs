@@ -8,4 +8,10 @@ public partial class GameWindow : Window
     {
         InitializeComponent();
     }
+
+    private void MenuItemRules_OnClick(object sender, RoutedEventArgs e)
+    {
+        RulesWindow rulesWindow = new RulesWindow();
+        rulesWindow.ShowDialog();
+    }
 }
