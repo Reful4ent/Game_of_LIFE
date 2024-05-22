@@ -9,4 +9,19 @@
         <RootNamespace>Game_of_LIFE.Console</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="View\IMG\Background.gif" />
+      <None Remove="View\IMG\Icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+      <PackageReference Include="WpfAutoGrid" Version="1.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="View\IMG\Background.gif" />
+      <Resource Include="View\IMG\Icon.png" />
+    </ItemGroup>
+
 </Project>

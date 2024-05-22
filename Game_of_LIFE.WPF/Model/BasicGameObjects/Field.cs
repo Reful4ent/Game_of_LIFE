@@ -12,6 +12,12 @@ public class Field : IField
         CreateCellField(width,length);
     }
     
+    /// <summary>
+    /// Cоздание поля нужного размера.
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="length"></param>
+    /// <returns></returns>
     private bool CreateCellField(int width, int length)
     {
         if (width < 1 || length < 1)
@@ -22,6 +28,12 @@ public class Field : IField
                 CellField[i, j] = new Cell();
         return true;
     }
+    
+    /// <summary>
+    /// Инициализация поля.
+    /// </summary>
+    /// <param name="settingsField"></param>
+    /// <returns></returns>
     public bool SetCellField(int[,] settingsField)
     {
         if (settingsField == null)
@@ -44,6 +56,12 @@ public class Field : IField
         }
         return true;
     }
+    
+    /// <summary>
+    /// Копирование поля.
+    /// </summary>
+    /// <param name="prevField"></param>
+    /// <returns></returns>
     private bool SetCopyField(ref ICell[,] prevField)
     {
         if (CellField.GetLength(0) != prevField.GetLength(0) 
@@ -77,6 +95,8 @@ public class Field : IField
     }
     private int GetX(int x, int length) => (length + x) % length;
     private int GetY(int y, int width) => (width + y) % width;
+    
+    //Проверка на то что позиция статичная (клетки живы, но не двигаются).
     public bool CheckStaticPosition(ICell[,] prevField)
     {
         for (int i = 0; i < CellField.GetLength(0); i++)
@@ -89,6 +109,12 @@ public class Field : IField
         }
         return true;
     }
+    
+    /// <summary>
+    /// Cдвиг поля.
+    /// </summary>
+    /// <param name="fieldIsCycle"></param>
+    /// <returns></returns>
     public bool Step(bool fieldIsCycle)
     {
         ICell[,] prevCell = new ICell[CellField.GetLength(0), CellField.GetLength(1)];
@@ -97,13 +123,20 @@ public class Field : IField
         int width = CellField.GetLength(1);
 
         if(fieldIsCycle)
-            NonCycleField(prevCell,width,length);
-        else CycleField(prevCell,width,length);
+            CycleField(prevCell,width,length);
+        else NonCycleField(prevCell,width,length);
         
         if (CheckStaticPosition(prevCell))
             return true;
         return false;
     }
+    
+    /// <summary>
+    /// Логика шага с стандартным полем.
+    /// </summary>
+    /// <param name="prevCell"></param>
+    /// <param name="width"></param>
+    /// <param name="length"></param>
     private void NonCycleField(ICell[,] prevCell,int width,int length)
     {
          for (int i = 0; i < length; i++)
@@ -185,6 +218,13 @@ public class Field : IField
             }
         }
     }
+    
+    /// <summary>
+    /// Логика шага с "закольцованным" полем.
+    /// </summary>
+    /// <param name="prevCell"></param>
+    /// <param name="width"></param>
+    /// <param name="length"></param>
     private void CycleField(ICell[,] prevCell, int width, int length)
     {
         for (int i = 0; i < length; i++)

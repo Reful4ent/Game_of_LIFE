@@ -1,0 +1,60 @@
+﻿<Window x:Class="Game_of_LIFE.Console.View.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Game_of_LIFE.Console.View"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
+        Title="Game of Life"
+        Height="450"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Icon="IMG/Icon.png"
+        MinHeight="450"
+        MinWidth="800">
+    <Window.Resources>
+        <ResourceDictionary Source="Styles/StartStyles.xaml"></ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <Image gif:ImageBehavior.AnimatedSource="IMG/Background.gif">
+                        <Image.BitmapEffect>
+                            <BlurBitmapEffect Radius="30" />
+                        </Image.BitmapEffect>
+                    </Image>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition Height="0.05*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.35*"></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.35*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="GameNameTextBlock"
+                   Grid.Row="0"
+                   Style="{StaticResource GameNameStyle}"
+                   Grid.Column="1"
+                   ></TextBlock>
+        <Button x:Name="StartWindowButton"
+                Grid.Row="1"
+                Grid.Column="1"
+                Click="ButtonOpenGame_OnClick"
+                Style="{DynamicResource RoundButton}"
+                >Играть</Button>
+        <Button x:Name="AboutUsButton"
+                Grid.Row="3"
+                Grid.Column="1"
+                Click="ButtonAboutUs_OnClick"
+                Style="{DynamicResource RoundButton}">О нас</Button>
+    </Grid>
+</Window>
