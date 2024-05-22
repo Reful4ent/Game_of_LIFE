@@ -13,7 +13,12 @@ public class GameManager : IGameManager
     private bool isStarted = false;
     //Игра на паузе
     private bool isPaused = false;
+
+    //Тип поля
     private bool fieldType = false;
+    //Поколение
+    private int generation = 0;
+
     public IField FieldStartSet
     {
         get => fieldStartSet;
@@ -42,8 +47,19 @@ public class GameManager : IGameManager
         get => fieldType;
         private set => fieldType = value;
     }
+
+
+    public int Generation
+    {
+        get => generation;
+        private set => generation = value;
+    }
     
-    public event Action<IField>? FieldRefreshed;
+    /// <summary>
+    /// Событие уведомляющее о том, что поле обновилось.
+    /// </summary>
+    public event Action<IField, int>? FieldRefreshed;
+
     
     public GameManager(IField fieldStartSet)
     {
@@ -54,6 +70,11 @@ public class GameManager : IGameManager
     
     public GameManager(){}
     
+    /// <summary>
+    /// Смена стартового игрового поля.
+    /// </summary>
+    /// <param name="fieldStartSet"></param>
+    /// <returns></returns>
     public bool ChangeField(IField fieldStartSet)
     {
         if (fieldStartSet == null)
@@ -74,7 +95,12 @@ public class GameManager : IGameManager
         }
         return true;
     }
-    
+
+    /// <summary>
+    /// Запуск игры.
+    /// </summary>
+    /// <param name="fieldType"></param>
+    /// <returns></returns>
     public async Task<bool> StartAsync(bool fieldType)
     {
         if (!IsStarted)
@@ -93,7 +119,8 @@ public class GameManager : IGameManager
                         IsPaused = false;
                         break;
                     }
-                    FieldRefreshed?.Invoke(FieldStartSet);
+                    Generation += 1;
+                    FieldRefreshed?.Invoke(FieldStartSet, Generation);
                     await Task.Delay(TimeDelay);
                     if(IsPaused)
                         break;
@@ -102,6 +129,13 @@ public class GameManager : IGameManager
         }
         return true;
     }
+    
+    
+    /// <summary>
+    /// Изменение скорости прорисовки.
+    /// </summary>
+    /// <param name="timeDelay"></param>
+    /// <returns></returns>
     public bool ChangeSpeed(int timeDelay)
     {
         if (timeDelay < 200 || timeDelay > 10000)
@@ -109,7 +143,11 @@ public class GameManager : IGameManager
         TimeDelay = timeDelay;
         return true;
     }
-
+    
+    /// <summary>
+    /// Пауза игры.
+    /// </summary>
+    /// <returns></returns>
     public bool Pause()
     {
         if (IsStarted && !IsPaused)
@@ -119,11 +157,46 @@ public class GameManager : IGameManager
         }
         return false;
     }
-
+    
+    /// <summary>
+    /// Возобновление игры.
+    /// </summary>
+    /// <returns></returns>
     public async Task<bool> ResumeAsync()
     {
         if(IsStarted && IsPaused)
             return await StartAsync(FieldType);
+        return false;
+    }
+    
+    /// <summary>
+    /// Останавливает игру и очищает поле.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<bool> StopAndClearAsync()
+    {
+        if (IsStarted && !IsPaused)
+        {
+            IsPaused = true;
+            IsStarted = false;
+            await Task.Delay(500);
+            FieldStartSet = null;
+            IsPaused = false;
+            Generation = 0;
+            FieldRefreshed?.Invoke(FieldStartSet, Generation);
+            return true;
+        }
+
+        if (IsStarted && IsPaused)
+        {
+            IsPaused = false;
+            IsStarted = false;
+            FieldStartSet = null;
+            Generation = 0;
+            FieldRefreshed?.Invoke(FieldStartSet, Generation);
+            return true;
+        }
+
         return false;
     }
 }
