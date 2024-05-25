@@ -28,7 +28,27 @@ public class GameViewModel : BaseVM
     private List<ICell> ConvertValuesCells = new List<ICell>();
     public ObservableCollection<ICell> gameFieldCellsCollection;
     
-    
+    int[,] StartConfig = {
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    };
+
+    public Action<string>? GameEnd;
     
     public bool IsCycle
     {
@@ -125,15 +145,6 @@ public class GameViewModel : BaseVM
         set
         {
             Set(ref gameFieldCells, value);
-            /*GameField = new int[Width, Length];
-            for (int i = 0; i < GameFieldCells.GetLength(0); i++)
-            {
-                for (int j = 0; j < GameFieldCells.GetLength(1); j++)
-                {
-                    ConvertValuesCells.Add(GameFieldCells[i,j]);
-                    GameField[i, j] = Convert.ToInt32(GameFieldCells[i, j].State);
-                }
-            }*/
             ConvertValuesCells = field.CellList;
             GameFieldCellsCollection = new ObservableCollection<ICell>(ConvertValuesCells);
         }
@@ -141,57 +152,11 @@ public class GameViewModel : BaseVM
     
     public GameViewModel()
     {
-        field = Field.Instance(width,Length);
-        int[,] c = {
-            {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        };
-
-        field.SetCellField(c);
+        field = Field.Instance(Width,Length);
+        field.SetCellField(StartConfig);
         GameFieldCells = field.CellField;
         gameManager.ChangeField(field);
-        gameManager.FieldRefreshed += PrintConsole;
-        /*IField field = Field.Instance(9,9);
-        ConvertValues.Clear();
-        GameField = new int[Width,Length];
-        for (int i = 0; i < GameField.GetLength(0); i++)
-        {
-            for (int j = 0; j < GameField.GetLength(1); j++)
-                ConvertValues.Add(GameField[i,j]);
-        }
-        GameFieldTWO = new ObservableCollection<int>(ConvertValues);
-        //ameField = new int[5, 5]{{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
-        gameManager.FieldRefreshed += PrintConsole;
-
-        int[,] c = {
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,1,0,0,0,0},
-            {0,0,0,1,1,1,0,0,0},
-            {0,0,0,0,1,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-        };
-
-        field.SetCellField(c);
-        gameManager.ChangeField(field);*/
+        gameManager.FieldRefreshed += GetState;
     }
 
     public Command StartResumeGameCommand => Command.Create(StartResumeGameAsync);
@@ -202,11 +167,10 @@ public class GameViewModel : BaseVM
             IsStarted = true;
             await gameManager.StartAsync(IsCycle);
         }
-        
-        System.Console.WriteLine($"{IsStarted} {IsPaused}");
+        //System.Console.WriteLine(IsPaused);
         if (IsStarted && IsPaused)
         {
-            System.Console.WriteLine($"weqeq {IsPaused}");
+            //System.Console.WriteLine($" BVBCV {IsPaused}");
             await gameManager.ResumeAsync();
             //IsPaused = false;
         }
@@ -216,10 +180,8 @@ public class GameViewModel : BaseVM
 
     private void PauseGameField()
     {
-        System.Console.WriteLine(IsPaused);
         gameManager.Pause();
-        IsPaused = true;
-        System.Console.WriteLine(IsPaused);
+        IsPaused = gameManager.IsPaused;
     }
 
     public Command ClearGameCommand => Command.Create(ClearGameField);
@@ -230,19 +192,31 @@ public class GameViewModel : BaseVM
         isStarted = false;
     }
 
+    public Command NextStepCommand => Command.Create(MoveNextStep);
 
-    public Command ShowNumberCommand => Command.Create(GetPosition);
-
-    private void GetPosition()
+    private void MoveNextStep()
     {
-        System.Console.WriteLine();
+        gameManager.NextStep();
     }
     
     
-    private void PrintConsole(IField fieldTemp, int generation)
+    private void GetState(IField fieldTemp, int generation)
     {
-        GameFieldCells = fieldTemp.CellField;
-        Generation = generation;
+        if (fieldTemp == null)
+        {
+            GameEnd.Invoke($"Игра закончилась, поколения: {Generation}");
+            field = Field.Instance(Width,Length);
+            field.SetCellField(StartConfig);
+            GameFieldCells = field.CellField;
+            gameManager.ChangeField(field);
+            Generation = generation;
+            isStarted = false;
+        }
+        else
+        {
+            GameFieldCells = fieldTemp.CellField;
+            Generation = generation;
+        }
     }
     public ICommand ButtonClickCommand => new RelayCommand<int>(ButtonClicked);
 

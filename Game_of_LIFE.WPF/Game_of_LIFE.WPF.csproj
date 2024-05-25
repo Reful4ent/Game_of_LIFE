@@ -14,6 +14,7 @@
       <None Remove="View\IMG\Close.png" />
       <None Remove="View\IMG\Draw.png" />
       <None Remove="View\IMG\Icon.png" />
+      <None Remove="View\IMG\NextArrow.png" />
       <None Remove="View\IMG\Pause.png" />
       <None Remove="View\IMG\Play.png" />
       <None Remove="View\IMG\ZoomIn.png" />
@@ -28,12 +29,10 @@
     <ItemGroup>
       <Resource Include="View\IMG\Background.gif" />
       <Resource Include="View\IMG\Close.png" />
-      <Resource Include="View\IMG\Draw.png" />
       <Resource Include="View\IMG\Icon.png" />
+      <Resource Include="View\IMG\NextArrow.png" />
       <Resource Include="View\IMG\Pause.png" />
       <Resource Include="View\IMG\Play.png" />
-      <Resource Include="View\IMG\ZoomIn.png" />
-      <Resource Include="View\IMG\ZoomOut.png" />
     </ItemGroup>
 
 </Project>

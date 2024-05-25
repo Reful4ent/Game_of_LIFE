@@ -11,11 +11,20 @@ public partial class GameWindow : Window
     {
         InitializeComponent();
         DataContext = new GameViewModel();
+        if (DataContext is GameViewModel gvm)
+        {
+            gvm.GameEnd += ShowEnd;
+        }
     }
 
     private void MenuItemRules_OnClick(object sender, RoutedEventArgs e)
     {
         RulesWindow rulesWindow = new RulesWindow();
         rulesWindow.ShowDialog();
+    }
+
+    private void ShowEnd(string information)
+    {
+        MessageBox.Show(information);
     }
 }

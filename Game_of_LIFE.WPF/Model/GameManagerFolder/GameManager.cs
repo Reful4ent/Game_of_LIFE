@@ -84,18 +84,6 @@ public class GameManager : IGameManager
         return true;
     }
     
-    public bool Start(bool fieldType)
-    {
-        while (true)
-        {
-            FieldStartSet.PrintCellField();
-            if (FieldStartSet.Step(fieldType))
-                break;
-            Thread.Sleep(2000);
-            System.Console.Clear();
-        }
-        return true;
-    }
 
     /// <summary>
     /// Запуск игры.
@@ -118,6 +106,8 @@ public class GameManager : IGameManager
                     {
                         IsStarted = false;
                         IsPaused = false;
+                        FieldRefreshed?.Invoke(FieldStartSet, Generation);
+                        FieldRefreshed?.Invoke(null, 0);
                         break;
                     }
                     Generation += 1;
@@ -130,7 +120,22 @@ public class GameManager : IGameManager
         }
         return true;
     }
-    
+
+    public void NextStep()
+    {
+        if (IsPaused)
+        {
+            if (FieldStartSet.Step(fieldType))
+            {
+                IsStarted = false;
+                IsPaused = false;
+                FieldRefreshed?.Invoke(FieldStartSet, Generation);
+                FieldRefreshed?.Invoke(null, 0);
+            }
+            Generation += 1;
+            FieldRefreshed?.Invoke(FieldStartSet, Generation);
+        }
+    }
     
     /// <summary>
     /// Изменение скорости прорисовки.
@@ -181,7 +186,6 @@ public class GameManager : IGameManager
             IsPaused = true;
             IsStarted = false;
             await Task.Delay(500);
-            System.Console.WriteLine("SDDASDASDASDAS");
             FieldStartSet = null;
             IsPaused = false;
             Generation = 0;
@@ -198,7 +202,6 @@ public class GameManager : IGameManager
             FieldRefreshed?.Invoke(FieldStartSet, Generation);
             return true;
         }
-
         return false;
     }
 }
