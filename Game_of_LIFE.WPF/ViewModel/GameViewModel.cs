@@ -11,9 +11,10 @@ public class GameViewModel : BaseVM
 {
     public const int MinimumSpeed = 300;
     public const int MaximumSpeed = 5000;
+    
     private IField field;
     private IGameManager gameManager = GameManager.Instance();
-    private BrushConverter brushConverter = new BrushConverter();
+    
     private bool isCycle = false;
     private int width = 17;
     private int length = 17;
