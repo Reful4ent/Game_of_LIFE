@@ -11,7 +11,7 @@
                         </Canvas>
                         <Track x:Name="PART_Track">
                             <Track.Thumb>
-                                <Thumb Width="20" Height="20" BorderThickness="1" BorderBrush="Black" />
+                                <Thumb Width="20" Height="20" BorderThickness="1" BorderBrush="Black" Background="BlueViolet"/>
                             </Track.Thumb>
                         </Track>
                     </Grid>

@@ -4,6 +4,7 @@ namespace Game_of_LIFE.Model.Interfaces;
 public class Field : IField
 {
     public ICell[,] CellField { get; private set; }
+    public List<ICell> CellList { get; private set; } = new List<ICell>();
     
     public static Field Instance(int width, int length) => new Field(width,length);
 
@@ -18,14 +19,23 @@ public class Field : IField
     /// <param name="width"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    private bool CreateCellField(int width, int length)
+    public bool CreateCellField(int width, int length)
     {
-        if (width < 1 || length < 1)
+        CellList.Clear();
+        if (width < 5 || length < 5)
             return false;
         CellField = new ICell[width, length];
+        int temp = 0;
         for (int i = 0; i < width; i++)
+        {
             for (int j = 0; j < length; j++)
-                CellField[i, j] = new Cell();
+            {
+                CellField[i, j] = new Cell(i,j,temp,false);
+                temp += 1;
+                CellList.Add(CellField[i,j]);
+            }
+        }
+        
         return true;
     }
     
@@ -42,20 +52,25 @@ public class Field : IField
         if (CellField.GetLength(0) != settingsField.GetLength(0) 
             || CellField.GetLength(1) != settingsField.GetLength(1))
             return false;
-        
+        int position = 0;
+        CellList.Clear();
         for (int i = 0; i < settingsField.GetLength(0); i++)
         {
             for (int j = 0; j < settingsField.GetLength(1); j++)
             {
-                ICell temp = new Cell();
+                ICell temp = new Cell(i,j,position, false);
                 if (settingsField[i, j] < 0 || settingsField[i, j] > 1)
                     temp.State = false;
                 temp.State = Convert.ToBoolean(settingsField[i, j]);
                 CellField[i, j] = temp;
+                CellList.Add(CellField[i,j]);
+                position += 1;
             }
         }
         return true;
     }
+
+    public void ClearField() => CellField = null;
     
     /// <summary>
     /// Копирование поля.
@@ -67,12 +82,16 @@ public class Field : IField
         if (CellField.GetLength(0) != prevField.GetLength(0) 
             || CellField.GetLength(1) != prevField.GetLength(1))
             return false;
+        int position = 0;
+        CellList.Clear();
         for (int i = 0; i < CellField.GetLength(0); i++)
         {
             for (int j = 0; j < CellField.GetLength(1); j++)
             {
-                prevField[i, j] = new Cell();
+                prevField[i, j] = new Cell(i,j, position,false);
                 prevField[i, j].State = CellField[i, j].State;
+                position += 1;
+                CellList.Add(prevField[i,j]);
             }
         }
         return true;
@@ -211,10 +230,15 @@ public class Field : IField
                     sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j].State);
                     sumOfNeignours += Convert.ToInt32(prevCell[i + 1, j+1].State);
                 }
+
                 if ((prevCell[i, j].State == false) && (sumOfNeignours == 3))
+                {
                     CellField[i, j].State = true;
+                }
                 else if (sumOfNeignours < 2 || sumOfNeignours > 3)
+                {
                     CellField[i, j].State = false;
+                }
             }
         }
     }
@@ -240,10 +264,12 @@ public class Field : IField
                 sumOfNeignours += Convert.ToInt32(prevCell[GetX(i+1,length), GetY(j-1,width)].State);
                 sumOfNeignours += Convert.ToInt32(prevCell[GetX(i+1,length), GetY(j,width)].State);
                 sumOfNeignours += Convert.ToInt32(prevCell[GetX(i+1,length), GetY(j+1,width)].State);
-                if ((prevCell[i, j].State == false) && (sumOfNeignours == 3))
+                if ((prevCell[i, j].State == false) && (sumOfNeignours == 3))  {
                     CellField[i, j].State = true;
-                else if (sumOfNeignours < 2 || sumOfNeignours > 3)
+                }
+                else if (sumOfNeignours < 2 || sumOfNeignours > 3)  {
                     CellField[i, j].State = false;
+                }
             }
         }
     }

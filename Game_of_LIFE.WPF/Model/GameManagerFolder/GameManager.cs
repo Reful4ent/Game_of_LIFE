@@ -13,7 +13,6 @@ public class GameManager : IGameManager
     private bool isStarted = false;
     //Игра на паузе
     private bool isPaused = false;
-
     //Тип поля
     private bool fieldType = false;
     //Поколение
@@ -69,6 +68,8 @@ public class GameManager : IGameManager
     }
     
     public GameManager(){}
+
+    public static GameManager Instance() => new GameManager();
     
     /// <summary>
     /// Смена стартового игрового поля.
@@ -180,6 +181,7 @@ public class GameManager : IGameManager
             IsPaused = true;
             IsStarted = false;
             await Task.Delay(500);
+            System.Console.WriteLine("SDDASDASDASDAS");
             FieldStartSet = null;
             IsPaused = false;
             Generation = 0;
