@@ -11,13 +11,24 @@
 
     <ItemGroup>
       <None Remove="View\IMG\Background.gif" />
+      <None Remove="View\IMG\Blinker.gif" />
+      <None Remove="View\IMG\Block.png" />
+      <None Remove="View\IMG\CGoL_Loaf.png" />
       <None Remove="View\IMG\Clear.png" />
       <None Remove="View\IMG\Close.png" />
+      <None Remove="View\IMG\Conways_game_of_life_canoe.png" />
+      <None Remove="View\IMG\Conways_game_of_life_hive.png" />
+      <None Remove="View\IMG\Conways_game_of_life_integral.png" />
+      <None Remove="View\IMG\Conways_game_of_life_pond.png" />
       <None Remove="View\IMG\Draw.png" />
+      <None Remove="View\IMG\Game_of_life_beacon.gif" />
+      <None Remove="View\IMG\Game_of_life_toad.gif" />
+      <None Remove="View\IMG\Glider.gif" />
       <None Remove="View\IMG\Icon.png" />
       <None Remove="View\IMG\NextArrow.png" />
       <None Remove="View\IMG\Pause.png" />
       <None Remove="View\IMG\Play.png" />
+      <None Remove="View\IMG\Pulsar.png" />
       <None Remove="View\IMG\Slider.png" />
       <None Remove="View\IMG\ZoomIn.png" />
       <None Remove="View\IMG\ZoomOut.png" />
@@ -30,12 +41,21 @@
 
     <ItemGroup>
       <Resource Include="View\IMG\Background.gif" />
+      <Resource Include="View\IMG\Blinker.gif" />
+      <Resource Include="View\IMG\Block.png" />
+      <Resource Include="View\IMG\CGoL_Loaf.png" />
       <Resource Include="View\IMG\Clear.png" />
       <Resource Include="View\IMG\Close.png" />
+      <Resource Include="View\IMG\Conways_game_of_life_hive.png" />
+      <Resource Include="View\IMG\Conways_game_of_life_integral.png" />
+      <Resource Include="View\IMG\Game_of_life_beacon.gif" />
+      <Resource Include="View\IMG\Game_of_life_toad.gif" />
+      <Resource Include="View\IMG\Glider.gif" />
       <Resource Include="View\IMG\Icon.png" />
       <Resource Include="View\IMG\NextArrow.png" />
       <Resource Include="View\IMG\Pause.png" />
       <Resource Include="View\IMG\Play.png" />
+      <Resource Include="View\IMG\Pulsar.png" />
       <Resource Include="View\IMG\Slider.png" />
     </ItemGroup>
 

@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Game_of_LIFE.Console.View"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Title="Reference"
         Height="550" 
@@ -14,42 +15,191 @@
         ResizeMode="NoResize"
         Icon="IMG/Icon.png">
     <Grid>
-        <Grid Margin="20 20 20 20">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0"
-                        TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold">
-                       Клетка может находиться в двух состояниях: быть «живой» или быть «мёртвой». Клетка выделенная на поле черным цветом - является живой, иначе - мертвой.
-            </TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold" Grid.Row="1"
-                       >Поле - размер игрового поля задается игроком (минимум 5 и максимум 40 клеток по длине и ширине). Игровое поле может быть цикличным, то есть не иметь ограничений справа, сверху и т.д.</TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold"
-                       Grid.Row="2">Чтобы начать игру следует нажать старт игры.  <Image Source="IMG/Play.png" Height="30px" Width="40px"></Image> </TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold" Grid.Row="3">Игрок может изменять скорость симуляции передвигая ползунок слайдера. <Image Source="IMG/Slider.png" Height="30px" Width="40px"></Image></TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold" Grid.Row="4">Чтобы игрок мог сам сдвигать ход, игру следует поставить на паузу и воспользоваться кнопкой хода (стрелка). <Image Source="IMG/NextArrow.png" Height="30px" Width="40px"></Image> </TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold" Grid.Row="5">Если требуется завершить игру досрочно, надо нажать на завершение игры (крест). <Image Source="IMG/Close.png" Height="30px" Width="40px"></Image> </TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="16"
-                       FontWeight="SemiBold" Grid.Row="6">Для очищения стартового поля до начала игры следедует нажать очищение игрового поля (кисть).<Image Source="IMG/Clear.png" Height="30px" Width="40px"></Image></TextBlock>
-        </Grid>
+        <ScrollViewer>
+            <Grid Margin="20 20 20 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="80px"></RowDefinition>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                            TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold">
+                           Клетка может находиться в двух состояниях: быть «живой» или быть «мёртвой». Клетка выделенная на поле черным цветом - является живой, иначе - мертвой.
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold" Grid.Row="1"
+                           >Поле - размер игрового поля задается игроком (минимум 5 и максимум 40 клеток по длине и ширине). Игровое поле может быть цикличным, то есть не иметь ограничений справа, сверху и т.д.</TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Grid.Row="2">Чтобы начать игру следует нажать старт игры.  <Image Source="IMG/Play.png" Height="30px" Width="40px"></Image> </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold" Grid.Row="3">Игрок может изменять скорость симуляции передвигая ползунок слайдера. <Image Source="IMG/Slider.png" Height="30px" Width="40px"></Image></TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold" Grid.Row="4">Чтобы игрок мог сам сдвигать ход, игру следует поставить на паузу и воспользоваться кнопкой хода (стрелка). <Image Source="IMG/NextArrow.png" Height="30px" Width="40px"></Image> </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold" Grid.Row="5">Если требуется завершить игру досрочно, надо нажать на завершение игры (крест). <Image Source="IMG/Close.png" Height="30px" Width="40px"></Image> </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold" Grid.Row="6">Для очищения стартового поля до начала игры следедует нажать очищение игрового поля (кисть).<Image Source="IMG/Clear.png" Height="30px" Width="40px"></Image></TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Grid.Row="7">Интересные комбинации:</TextBlock>
+                <Grid Grid.Row="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Блок</TextBlock>
+                        <Image Source="IMG/Block.png" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Блок</TextBlock>
+                        <Image Source="IMG/Block.png" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Улей</TextBlock>
+                        <Image Source="IMG/Conways_game_of_life_hive.png" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="9">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Интеграл</TextBlock>
+                        <Image Source="IMG/Conways_game_of_life_integral.png" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Каравай</TextBlock>
+                        <Image Source="IMG/CGoL_Loaf.png" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Пульсар</TextBlock>
+                        <Image Source="IMG/Pulsar.png" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Мигалка</TextBlock>
+                        <Image gif:ImageBehavior.AnimatedSource="IMG/Blinker.gif" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="11">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Маяк</TextBlock>
+                        <Image gif:ImageBehavior.AnimatedSource="IMG/Game_of_life_beacon.gif" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center">Жаба</TextBlock>
+                        <Image gif:ImageBehavior.AnimatedSource="IMG/Game_of_life_toad.gif" Height="200px" Width="200px" Grid.Row="1"></Image>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" TextWrapping="Wrap"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center">Планер</TextBlock>
+                        <Image gif:ImageBehavior.AnimatedSource="IMG/Glider.gif" Height="200px" Width="200px" Grid.Row="1" HorizontalAlignment="Center"></Image>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

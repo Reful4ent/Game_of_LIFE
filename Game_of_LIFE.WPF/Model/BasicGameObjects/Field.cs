@@ -69,8 +69,6 @@ public class Field : IField
         }
         return true;
     }
-
-    public void ClearField() => CellField = null;
     
     /// <summary>
     /// Копирование поля.
@@ -139,7 +137,7 @@ public class Field : IField
     }
     
     /// <summary>
-    /// Cдвиг поля.
+    /// Cдвиг поля (смена поколения).
     /// </summary>
     /// <param name="fieldIsCycle"></param>
     /// <returns></returns>
@@ -160,7 +158,7 @@ public class Field : IField
     }
     
     /// <summary>
-    /// Логика шага с стандартным полем.
+    /// Логика шага с стандартным полем (не цикличным).
     /// </summary>
     /// <param name="prevCell"></param>
     /// <param name="width"></param>
@@ -253,7 +251,7 @@ public class Field : IField
     }
     
     /// <summary>
-    /// Логика шага с "закольцованным" полем.
+    /// Логика шага с "цикличным" полем.
     /// </summary>
     /// <param name="prevCell"></param>
     /// <param name="width"></param>
