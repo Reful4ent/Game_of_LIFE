@@ -22,6 +22,12 @@ public partial class GameWindow : Window
         RulesWindow rulesWindow = new RulesWindow();
         rulesWindow.ShowDialog();
     }
+    
+    private void MenuItemReference_OnClick(object sender, RoutedEventArgs e)
+    {
+        ReferenceWindow referenceWindowWindow = new ReferenceWindow();
+        referenceWindowWindow.ShowDialog();
+    }
 
     private void ShowEnd(string information)
     {

@@ -18,6 +18,7 @@
       <None Remove="View\IMG\NextArrow.png" />
       <None Remove="View\IMG\Pause.png" />
       <None Remove="View\IMG\Play.png" />
+      <None Remove="View\IMG\Slider.png" />
       <None Remove="View\IMG\ZoomIn.png" />
       <None Remove="View\IMG\ZoomOut.png" />
     </ItemGroup>
@@ -35,6 +36,7 @@
       <Resource Include="View\IMG\NextArrow.png" />
       <Resource Include="View\IMG\Pause.png" />
       <Resource Include="View\IMG\Play.png" />
+      <Resource Include="View\IMG\Slider.png" />
     </ItemGroup>
 
 </Project>
