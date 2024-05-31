@@ -77,8 +77,10 @@ public class GameViewModel : BaseVM
         get => width;
         set
         {
-            if (value > 5)
+            if ((value >= 5) && (value <= 40))
                 Set(ref width, value);
+            else if (value > 40)
+                Set(ref width, 40);
             else Set(ref width, 5);
             if (!isStarted)
             {
@@ -96,8 +98,10 @@ public class GameViewModel : BaseVM
         get => length;
         set
         {
-            if (value > 5)
+            if ((value >= 5) && (value <= 40))
                 Set(ref length, value);
+            else if (value > 40)
+                Set(ref length, 40);
             else Set(ref length, 5);
             if (!isStarted)
             {
