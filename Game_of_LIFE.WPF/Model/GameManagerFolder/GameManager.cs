@@ -108,6 +108,7 @@ public class GameManager : IGameManager
                         IsPaused = false;
                         FieldRefreshed?.Invoke(FieldStartSet, Generation);
                         FieldRefreshed?.Invoke(null, 0);
+                        Generation = 0;
                         break;
                     }
                     Generation += 1;
@@ -131,6 +132,8 @@ public class GameManager : IGameManager
                 IsPaused = false;
                 FieldRefreshed?.Invoke(FieldStartSet, Generation);
                 FieldRefreshed?.Invoke(null, 0);
+                Generation = 0;
+                return;
             }
             Generation += 1;
             FieldRefreshed?.Invoke(FieldStartSet, Generation);

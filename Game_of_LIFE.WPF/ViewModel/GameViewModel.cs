@@ -189,8 +189,8 @@ public class GameViewModel : BaseVM
 
     private async void ClearGameField()
     {
-        await gameManager.StopAndClearAsync();
-        isStarted = false;
+        if(await gameManager.StopAndClearAsync())
+            isStarted = false;
     }
 
     public Command NextStepCommand => Command.Create(MoveNextStep);
@@ -201,22 +201,22 @@ public class GameViewModel : BaseVM
     }
     
     
-    private void GetState(IField fieldTemp, int generation)
+    private void GetState(IField fieldTemp, int generationTemp)
     {
         if (fieldTemp == null)
         {
             GameEnd.Invoke($"Игра закончилась, поколения: {Generation}");
+            Generation = generationTemp;
             field = Field.Instance(Width,Length);
             field.SetCellField(StartConfig);
             GameFieldCells = field.CellField;
             gameManager.ChangeField(field);
-            Generation = generation;
             isStarted = false;
         }
         else
         {
             GameFieldCells = fieldTemp.CellField;
-            Generation = generation;
+            Generation = generationTemp;
         }
     }
     public ICommand ButtonClickCommand => new RelayCommand<int>(ButtonClicked);
@@ -226,5 +226,16 @@ public class GameViewModel : BaseVM
         GameFieldCellsCollection[index].State = !GameFieldCellsCollection[index].State;
         ConvertValuesCells[index].State = GameFieldCellsCollection[index].State;
         GameFieldCellsCollection = new ObservableCollection<ICell>(ConvertValuesCells);
+    }
+    
+    public Command ClearStartGameCommand => Command.Create(ClearStartField);
+
+    private void ClearStartField()
+    {
+        if (IsStarted == false)
+        {
+            ConvertValuesCells.ForEach(x => x.State = false);
+            GameFieldCellsCollection = new ObservableCollection<ICell>(ConvertValuesCells);
+        }
     }
 }

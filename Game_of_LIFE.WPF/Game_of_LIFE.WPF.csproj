@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <None Remove="View\IMG\Background.gif" />
+      <None Remove="View\IMG\Clear.png" />
       <None Remove="View\IMG\Close.png" />
       <None Remove="View\IMG\Draw.png" />
       <None Remove="View\IMG\Icon.png" />
@@ -28,6 +29,7 @@
 
     <ItemGroup>
       <Resource Include="View\IMG\Background.gif" />
+      <Resource Include="View\IMG\Clear.png" />
       <Resource Include="View\IMG\Close.png" />
       <Resource Include="View\IMG\Icon.png" />
       <Resource Include="View\IMG\NextArrow.png" />

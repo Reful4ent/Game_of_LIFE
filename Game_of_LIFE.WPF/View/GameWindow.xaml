@@ -31,7 +31,8 @@
                 <ColumnDefinition Width="0.1*"></ColumnDefinition>
                 <ColumnDefinition Width="0.2*"></ColumnDefinition>
                 <ColumnDefinition Width="0.1*"></ColumnDefinition>
-                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                <ColumnDefinition Width="0.4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button 
                 Background="Transparent"
@@ -61,8 +62,14 @@
             <Button Grid.Column="4"
                     Background="Transparent"
                     Command="{Binding ClearGameCommand}"
-                    ToolTip="Очистка поля">
+                    ToolTip="Очистка поля во время игры">
                 <Image Source="IMG/Close.png"></Image>
+            </Button>
+            <Button Grid.Column="5"
+                    Background="Transparent"
+                    Command="{Binding ClearStartGameCommand}"
+                    ToolTip="Очищает поле до начала игры">
+                <Image Source="IMG/Clear.png"></Image>
             </Button>
         </Grid>
         <Grid Grid.Row="2">
