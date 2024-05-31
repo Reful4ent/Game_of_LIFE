@@ -18,14 +18,9 @@
         <ScrollViewer>
             <Grid Margin="20 20 20 20">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60px"></RowDefinition>
-                    <RowDefinition Height="80px"></RowDefinition>
-                    <RowDefinition Height="60px"></RowDefinition>
-                    <RowDefinition Height="60px"></RowDefinition>
-                    <RowDefinition Height="60px"></RowDefinition>
-                    <RowDefinition Height="60px"></RowDefinition>
-                    <RowDefinition Height="60px"></RowDefinition>
-                    <RowDefinition Height="60px"></RowDefinition>
+                    <RowDefinition Height="100px"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -33,36 +28,22 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
-                            TextWrapping="Wrap"
+                           TextWrapping="Wrap"
                            FontSize="16"
                            FontWeight="SemiBold">
-                           Клетка может находиться в двух состояниях: быть «живой» или быть «мёртвой». Клетка выделенная на поле черным цветом - является живой, иначе - мертвой.
+                    Клеточный автомат, придуманный английским математиком Джоном Конвеем в 1970 году. Это игра без игроков, в которой человек создаёт начальное состояние, а потом лишь наблюдает за её развитием. В игре можно создать процессы с полнотой по Тьюрингу, что позволяет реализовать любую машину Тьюринга. 
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap"
+                <TextBlock Grid.Row="1" x:Name="RulesText"
+                           TextWrapping="Wrap"
                            FontSize="16"
-                           FontWeight="SemiBold" Grid.Row="1"
-                           >Поле - размер игрового поля задается игроком (минимум 5 и максимум 40 клеток по длине и ширине). Игровое поле может быть цикличным, то есть не иметь ограничений справа, сверху и т.д.</TextBlock>
-                <TextBlock TextWrapping="Wrap"
-                           FontSize="16"
-                           FontWeight="SemiBold"
-                           Grid.Row="2">Чтобы начать игру следует нажать старт игры.  <Image Source="IMG/Play.png" Height="30px" Width="40px"></Image> </TextBlock>
-                <TextBlock TextWrapping="Wrap"
-                           FontSize="16"
-                           FontWeight="SemiBold" Grid.Row="3">Игрок может изменять скорость симуляции передвигая ползунок слайдера. <Image Source="IMG/Slider.png" Height="30px" Width="40px"></Image></TextBlock>
-                <TextBlock TextWrapping="Wrap"
-                           FontSize="16"
-                           FontWeight="SemiBold" Grid.Row="4">Чтобы игрок мог сам сдвигать ход, игру следует поставить на паузу и воспользоваться кнопкой хода (стрелка). <Image Source="IMG/NextArrow.png" Height="30px" Width="40px"></Image> </TextBlock>
-                <TextBlock TextWrapping="Wrap"
-                           FontSize="16"
-                           FontWeight="SemiBold" Grid.Row="5">Если требуется завершить игру досрочно, надо нажать на завершение игры (крест). <Image Source="IMG/Close.png" Height="30px" Width="40px"></Image> </TextBlock>
-                <TextBlock TextWrapping="Wrap"
-                           FontSize="16"
-                           FontWeight="SemiBold" Grid.Row="6">Для очищения стартового поля до начала игры следедует нажать очищение игрового поля (кисть).<Image Source="IMG/Clear.png" Height="30px" Width="40px"></Image></TextBlock>
+                           FontWeight="DemiBold"
+                           TextAlignment="Justify"
+                           ></TextBlock>
                 <TextBlock TextWrapping="Wrap"
                            FontSize="16"
                            FontWeight="SemiBold"
-                           Grid.Row="7">Интересные комбинации:</TextBlock>
-                <Grid Grid.Row="8">
+                           Grid.Row="2">Интересные комбинации:</TextBlock>
+                <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -101,7 +82,7 @@
                         <Image Source="IMG/Conways_game_of_life_hive.png" Height="200px" Width="200px" Grid.Row="1"></Image>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="9">
+                <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -129,7 +110,7 @@
                         <Image Source="IMG/CGoL_Loaf.png" Height="200px" Width="200px" Grid.Row="1"></Image>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="10">
+                <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -157,7 +138,7 @@
                         <Image gif:ImageBehavior.AnimatedSource="IMG/Blinker.gif" Height="200px" Width="200px" Grid.Row="1"></Image>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="11">
+                <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -185,7 +166,7 @@
                         <Image gif:ImageBehavior.AnimatedSource="IMG/Game_of_life_toad.gif" Height="200px" Width="200px" Grid.Row="1"></Image>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="12">
+                <Grid Grid.Row="7">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
