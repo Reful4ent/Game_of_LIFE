@@ -9,6 +9,7 @@ namespace Game_of_LIFE.Console.ViewModel;
 
 public class GameViewModel : BaseVM
 {
+    //Константы для максимальной и минимальной скорости изменения поля.
     public const int MinimumSpeed = 300;
     public const int MaximumSpeed = 5000;
     
@@ -29,6 +30,7 @@ public class GameViewModel : BaseVM
     private List<ICell> ConvertValuesCells = new List<ICell>();
     public ObservableCollection<ICell> gameFieldCellsCollection;
     
+    //Cтартовая конфигурация игры.
     int[,] StartConfig = {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -159,48 +161,13 @@ public class GameViewModel : BaseVM
         gameManager.ChangeField(field);
         gameManager.FieldRefreshed += GetState;
     }
-
-    public Command StartResumeGameCommand => Command.Create(StartResumeGameAsync);
-    private async void StartResumeGameAsync()
-    {
-        if (!IsStarted)
-        {
-            IsStarted = true;
-            await gameManager.StartAsync(IsCycle);
-        }
-        //System.Console.WriteLine(IsPaused);
-        if (IsStarted && IsPaused)
-        {
-            //System.Console.WriteLine($" BVBCV {IsPaused}");
-            await gameManager.ResumeAsync();
-            //IsPaused = false;
-        }
-    }
     
-    public Command PauseGameCommand => Command.Create(PauseGameField);
-
-    private void PauseGameField()
-    {
-        gameManager.Pause();
-        IsPaused = gameManager.IsPaused;
-    }
-
-    public Command ClearGameCommand => Command.Create(ClearGameField);
-
-    private async void ClearGameField()
-    {
-        if(await gameManager.StopAndClearAsync())
-            isStarted = false;
-    }
-
-    public Command NextStepCommand => Command.Create(MoveNextStep);
-
-    private void MoveNextStep()
-    {
-        gameManager.NextStep();
-    }
-    
-    
+    /// <summary>
+    /// Показывает состояние клеток на игровом поле.
+    /// Eсли игра кончилась, то оповещает игрока об этом.
+    /// </summary>
+    /// <param name="fieldTemp"></param>
+    /// <param name="generationTemp"></param>
     private void GetState(IField fieldTemp, int generationTemp)
     {
         if (fieldTemp == null)
@@ -219,8 +186,63 @@ public class GameViewModel : BaseVM
             Generation = generationTemp;
         }
     }
-    public ICommand ButtonClickCommand => new RelayCommand<int>(ButtonClicked);
 
+    
+    /// <summary>
+    /// Запускает/возобновляет игру.
+    /// </summary>
+    public Command StartResumeGameCommand => Command.Create(StartResumeGameAsync);
+    private async void StartResumeGameAsync()
+    {
+        if (!IsStarted)
+        {
+            IsStarted = true;
+            await gameManager.StartAsync(IsCycle);
+        }
+        else if (IsStarted && IsPaused)
+        {
+            await gameManager.ResumeAsync();
+        }
+    }
+    
+    
+    /// <summary>
+    /// Ставит игру на паузу.
+    /// </summary>
+    public Command PauseGameCommand => Command.Create(PauseGameField);
+    private void PauseGameField()
+    {
+        gameManager.Pause();
+        IsPaused = gameManager.IsPaused;
+    }
+
+    
+    /// <summary>
+    /// Очистка игрового поля во время игры.
+    /// </summary>
+    public Command ClearGameCommand => Command.Create(ClearGameField);
+    private async void ClearGameField()
+    {
+        if(await gameManager.StopAndClearAsync())
+            isStarted = false;
+    }
+
+    /// <summary>
+    /// Ход игрока.
+    /// </summary>
+    public Command NextStepCommand => Command.Create(MoveNextStep);
+    private void MoveNextStep()
+    {
+        gameManager.NextStep();
+    }
+    
+    
+    
+    
+    /// <summary>
+    /// Изменение состояния клетки до начала игры (живая/мертвая).
+    /// </summary>
+    public ICommand ButtonClickCommand => new RelayCommand<int>(ButtonClicked);
     private void ButtonClicked(int index)
     {
         GameFieldCellsCollection[index].State = !GameFieldCellsCollection[index].State;
@@ -228,8 +250,10 @@ public class GameViewModel : BaseVM
         GameFieldCellsCollection = new ObservableCollection<ICell>(ConvertValuesCells);
     }
     
+    /// <summary>
+    /// Очищение стартового игрового поля, если игроку не понравилась его конфигурация.
+    /// </summary>
     public Command ClearStartGameCommand => Command.Create(ClearStartField);
-
     private void ClearStartField()
     {
         if (IsStarted == false)

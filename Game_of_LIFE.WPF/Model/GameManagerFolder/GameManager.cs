@@ -121,7 +121,10 @@ public class GameManager : IGameManager
         }
         return true;
     }
-
+    
+    /// <summary>
+    /// Сдвиг игрового поля на один шаг пользователем.
+    /// </summary>
     public void NextStep()
     {
         if (IsPaused)

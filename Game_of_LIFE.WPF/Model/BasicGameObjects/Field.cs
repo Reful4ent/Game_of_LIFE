@@ -96,6 +96,9 @@ public class Field : IField
         }
         return true;
     }
+    /// <summary>
+    /// Консольный вывод промежуточного поля игры.
+    /// </summary>
     public void PrintCellField()
     {
         if (CellField == null)
@@ -112,10 +115,16 @@ public class Field : IField
             System.Console.WriteLine();
         }
     }
+    
+    //Вычисления положения клетки на поле.
     private int GetX(int x, int length) => (length + x) % length;
     private int GetY(int y, int width) => (width + y) % width;
     
-    //Проверка на то что позиция статичная (клетки живы, но не двигаются).
+    /// <summary>
+    /// Проверка на то что позиция статичная (клетки живы, но не двигаются).
+    /// </summary>
+    /// <param name="prevField"></param>
+    /// <returns></returns>
     public bool CheckStaticPosition(ICell[,] prevField)
     {
         for (int i = 0; i < CellField.GetLength(0); i++)
